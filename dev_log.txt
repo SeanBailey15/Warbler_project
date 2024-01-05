@@ -1,0 +1,17 @@
+1/4/24: 
+--Initialized the codebase from downloaded zip
+--Created Git repository before doing any work
+--Spent time familiarizing myself with the Model
+--Spent time learning about the Flask 'g' object and its purpose:
+    *stores common data during a request, only "global" within a context* 
+    *doesn't store data BETWEEN requests -> use session or database instead!*
+--Learned about the before_request decorator:
+    *do_logout probably shouldn't be here(?)*
+--Learned about the os library:
+    *provides functions for interacting with the operating system*
+    *os.environ is a mapping object that repr the user's environmental variables*
+    *behaves like a dictionary, dict operations can be performed*
+    *can be modified but ONLY for the current process where it was assigned, not permanent*
+
+TOTAL TIME TODAY: 2.5 HOURS
+
