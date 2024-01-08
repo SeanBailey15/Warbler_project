@@ -43,3 +43,12 @@ TOTAL TIME TODAY: 2.5 HOURS
     *Fixed html in followers.html and index.html to display the Bios correctly
 
 TOTAL TIME TODAY: 2 HOURS
+
+1/8/24: @12:12
+--Profile Edit step:
+    *Created form class EditUserForm in forms.py
+    *Wrote logic for /users/profile route in app.py:
+        -Noticed project instructions didn't mention adding a location field to the form, added this
+        -Used multiple conditions to ensure a user is authorized to make the changes and to ensure the user cannot change their username to something that is already taken
+
+TOTAL TIME TODAY: 1.5 HOURS 
