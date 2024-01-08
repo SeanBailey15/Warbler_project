@@ -8,7 +8,7 @@ tweak the CSV formats or generate fewer/more rows.
 import csv
 from random import choice, randint, sample
 from itertools import permutations
-import requests
+# import requests -- Commented out because it is not needed: see line 42
 from faker import Faker
 from helpers import get_random_datetime
 
@@ -34,10 +34,14 @@ image_urls = [
 
 # Generate random header image URLs to use for users
 
-header_image_urls = [
-    requests.get(f"http://www.splashbase.co/api/v1/images/{i}").json()['url']
-    for i in range(1, 46)
-]
+# header_image_urls = [
+#     requests.get(f"http://www.splashbase.co/api/v1/images/{i}").json()['url']
+#     for i in range(1, 46)
+# ]
+
+#*****The above API no longer works to fetch random header images...
+# seetting header_image_url below to use default from model instead*****
+
 
 with open('generator/users.csv', 'w') as users_csv:
     users_writer = csv.DictWriter(users_csv, fieldnames=USERS_CSV_HEADERS)
@@ -50,7 +54,7 @@ with open('generator/users.csv', 'w') as users_csv:
             image_url=choice(image_urls),
             password='$2b$12$Q1PUFjhN/AWRQ21LbGYvjeLpZZB6lfZ1BPwifHALGO6oIbyC3CmJe',
             bio=fake.sentence(),
-            header_image_url=choice(header_image_urls),
+            header_image_url="/static/images/warbler-hero.jpg",
             location=fake.city()
         ))
 

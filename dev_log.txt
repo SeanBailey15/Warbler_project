@@ -1,12 +1,17 @@
 1/4/24: 
 --Initialized the codebase from downloaded zip
+
 --Created Git repository before doing any work
+
 --Spent time familiarizing myself with the Model
+
 --Spent time learning about the Flask 'g' object and its purpose:
     *stores common data during a request, only "global" within a context* 
     *doesn't store data BETWEEN requests -> use session or database instead!*
+
 --Learned about the before_request decorator:
     *do_logout probably shouldn't be here(?)*
+
 --Learned about the os library:
     *provides functions for interacting with the operating system*
     *os.environ is a mapping object that repr the user's environmental variables*
@@ -15,3 +20,26 @@
 
 TOTAL TIME TODAY: 2.5 HOURS
 
+1/7/24:
+--Worked on Fix Logout step:
+    *Changed debug intercepts to false during this process
+    *Implemented simple logout using the provided do_logout() function
+    *Question from 1/4 about do_logout was unfounded... 
+    *Upon reading app.py further, realized before_request will only call functions when the requested route explicitly calls one of the functions it contains.
+
+--Worked on Fix User Profile step:
+    *Changed the way "Bio" and "Location" are displayed in detail.html
+    *Followed another user, noticed the followed_user card was not displaying their bio correctly
+    *Changed the "Bio" in following.html to display correctly
+    *Changed div #warbler-hero to include an image from user.header_image_url
+        -Had to comment out a portion of styling in styling.css under "User profile"; see comments in that file
+        -This change did not affect other users --> FOUND A BUG:
+            Had to comment out an API call in /generator/create_csvs.py because it was broken;
+            Decided to hardcode the User model default header_image_url into the generator; see comments in /generator/create_csvs.py
+        -Regenerated the csv files so it would render a header image for users, then re-seeded
+
+--Fix User Cards step:
+    *Already fixed the html for following.html in the previous step
+    *Fixed html in followers.html and index.html to display the Bios correctly
+
+TOTAL TIME TODAY: 2 HOURS

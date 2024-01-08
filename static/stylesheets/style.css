@@ -158,7 +158,9 @@ nav + .container {
   margin-top: 100px;
 }
 
-#profile-image,
+/* #profile-image, 
+  COMMENTED THIS OUT BECAUSE IT CAUSED HEADER IMAGE TO BE ROUNDED,
+  WHICH WAS UNDESIRABLE. DID NOT DELETE IT SO I CAN RETRACE MY STEPS */
 #profile-avatar {
   border-radius: 100%;
   display: block;
