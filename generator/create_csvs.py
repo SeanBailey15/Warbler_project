@@ -40,7 +40,7 @@ image_urls = [
 # ]
 
 #*****The above API no longer works to fetch random header images...
-# seetting header_image_url below to use default from model instead*****
+# setting header_image_url below to use default from model instead*****
 
 
 with open('generator/users.csv', 'w') as users_csv:

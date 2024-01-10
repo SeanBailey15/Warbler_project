@@ -11,6 +11,7 @@
 
 --Learned about the before_request decorator:
     *do_logout probably shouldn't be here(?)*
+    *1/9/24: Came to realization that do_logout() is not actually decorated with before_request
 
 --Learned about the os library:
     *provides functions for interacting with the operating system*
@@ -26,6 +27,7 @@ TOTAL TIME TODAY: 2.5 HOURS
     *Implemented simple logout using the provided do_logout() function
     *Question from 1/4 about do_logout was unfounded... 
     *Upon reading app.py further, realized before_request will only call functions when the requested route explicitly calls one of the functions it contains.
+    *1/9/24: Preceding comment can be disregarded, realized do_login() and do_logout() were not part of/paired with the before_request decorator
 
 --Worked on Fix User Profile step:
     *Changed the way "Bio" and "Location" are displayed in detail.html
@@ -44,11 +46,57 @@ TOTAL TIME TODAY: 2.5 HOURS
 
 TOTAL TIME TODAY: 2 HOURS
 
-1/8/24: @12:12
+1/8/24:
 --Profile Edit step:
     *Created form class EditUserForm in forms.py
     *Wrote logic for /users/profile route in app.py:
         -Noticed project instructions didn't mention adding a location field to the form, added this
         -Used multiple conditions to ensure a user is authorized to make the changes and to ensure the user cannot change their username to something that is already taken
 
-TOTAL TIME TODAY: 1.5 HOURS 
+TOTAL TIME TODAY: 1.5 HOURS
+
+1/9/24:
+--Fix Homepage step:
+    *Added to the messages query in the '/' route to filter the query with a loop over all users the current user is following, line 375 in app.py
+
+--Research and understand login strategy step:
+    *Coincidentally completed this step on 1/4/24
+
+Part Two, Add Likes:
+--Found the html for the thumbs up icon button from home.html:
+<form method="POST" action="/users/add_like/{{ msg.id }}" id="messages-form">
+    <button class="
+    btn 
+    btn-sm 
+    {{'btn-primary' if msg.id in likes else 'btn-secondary'}}"
+    >
+    <i class="fa fa-thumbs-up"></i> 
+    </button>
+</form>
+
+--Trying to incorporate this html into any other applicable situation:
+    *Changed the above html to this:
+<form method="POST" action="/users/add_like/{{ msg.id }}" id="messages-form">
+    <button class="
+    btn 
+    btn-sm 
+    {{'btn-primary' if msg in g.user.likes else 'btn-secondary'}}"
+    >
+    <i class="fa fa-thumbs-up"></i> 
+    </button>
+</form>
+    *Note that msg.id from the if statement did not achieve the desired result...
+    *This if statement is supposed to look for an instance within the list of likes, not an id
+    *Furthermore, had to specify g.user.likes instead of likes as in the original html...
+    *The original html would have been looking to compare the msg instance to an undefined variable otherwise
+    *Implemented like/unlike in a new route in app.py for the home page only, thus far--> line 319
+    *Found out about request.referrer! This will make like/unlike easier to implement elsewhere!!!
+    *Implemented the feature into show.html also, allowing a user to like messages directly from another users profile page
+    *Filled in the html to count likes on the users profile page, which is also a link to a page that displays all the liked messages
+    *Added route and template to display user liked messages. Placed the route at line 182 of app.py, in relation to the other routes accessed from the user profile page in the same manner
+    *Added conditional to the like button functionality within the html to prevent it being displayed to anonymous users
+
+TOTAL TIME TODAY: 4 HOURS
+
+Part Three, Add Tests:
+--

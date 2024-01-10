@@ -179,6 +179,23 @@ def users_followers(user_id):
     return render_template('users/followers.html', user=user)
 
 
+@app.route('/users/<int:user_id>/likes')
+def show_likes(user_id):
+    """Show list of messages this user likes"""
+
+    if g.user:
+        messages = (Message
+                    .query
+                    .filter(Message.id.in_([m.id for m in g.user.likes]))
+                    .order_by(Message.timestamp.desc())
+                    .limit(100)
+                    .all())
+
+        return render_template('/users/likes.html', messages=messages)
+
+    else:
+        return render_template('home-anon.html')
+
 @app.route('/users/follow/<int:follow_id>', methods=['POST'])
 def add_follow(follow_id):
     """Add a follow for the currently-logged-in user."""
@@ -316,6 +333,30 @@ def messages_destroy(message_id):
     return redirect(f"/users/{g.user.id}")
 
 
+@app.route('/users/add_like/<int:msg_id>', methods=["POST"])
+def messages_toggle_likes(msg_id):
+    """Toggle message likes"""
+
+    message = Message.query.get(msg_id)
+
+    if message.user_id != g.user.id:
+
+        if message in g.user.likes:
+            g.user.likes.remove(message)
+            db.session.commit()
+
+            return redirect(request.referrer)
+        
+        g.user.likes.append(message)
+        db.session.commit()
+
+
+        return redirect(request.referrer)
+    
+    flash("You cannot like your own comment, that's cheating.", "danger")
+    return redirect(request.referrer)
+
+
 ##############################################################################
 # Homepage and error pages
 
@@ -331,6 +372,7 @@ def homepage():
     if g.user:
         messages = (Message
                     .query
+                    .filter(Message.user_id.in_([f.id for f in g.user.following]))
                     .order_by(Message.timestamp.desc())
                     .limit(100)
                     .all())
