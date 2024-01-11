@@ -98,5 +98,40 @@ Part Two, Add Likes:
 
 TOTAL TIME TODAY: 4 HOURS
 
+1/10/24
 Part Three, Add Tests:
---
+--Test_user_model: 
+    *Decided to add db.drop_all before db.create_all
+    *Added a tearDown function to the test case that rolls the session back in case of a bad transaction
+    *Imported the Likes model, so added a delete query for Likes in the setUp function.
+    *Likes model not required for these tests, still thought it best to include to be thorough and eliminate potential bad transactions
+    *Added app.config to disable SQLAlchemy Echo
+    *Added two users (Bob and Jane) to setUp using the User.signup method
+    *The two users in setUp will allow for testing multiple other aspects of the model and relationships
+
+--Test_message_model:
+    *Configured the file and set up the TestCase exactly the same as test_user_model.
+    *Used the same setUp Users from test_user_model but added one message from each user.
+    *Created two tests for the message model. Could not think of any otherwise
+
+--Test_message_views:
+    *Started with this views test because it had some boilerplate code to get me going
+    *Implemented several of the tests suggested in the project instructions
+    *Though there are many more tests that could be added, I feel comfortable in my knowledge and pressed for time
+
+--Test_user_views:
+    *Approached this the same way as Test_message_views
+    *Though I could add more tests, I do not feel the need to spend more time on this project
+
+TOTAL TIME TODAY: 4.5 HOURS
+
+TOTAL TIME SPENT ON THE PROJECT: ~14.5 HOURS
+
+Final thoughts:
+
+    This project was very fulfilling. As much as I would like to continue to flesh it out
+with features, I am unfortunately racing the bootcamp deadline and must move on. I did feel
+very confident in my knowledge throughout, only referencing notes and docs a few times. I 
+also learned new things during my time working on the project, like request.referrer, flask 
+global g, and the before_request decorator. I feel like I've taken another step forward with 
+this project.
